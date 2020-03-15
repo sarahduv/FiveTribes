@@ -6,6 +6,7 @@ namespace FiveTribes
 {
     public class Table
     {
+        public static Table Instance;
         public const int MerchendiseShowingLimit = 9;
         public const int DjinnShowingLimit = 3;
         public const int BoardRows = 5;
@@ -17,12 +18,17 @@ namespace FiveTribes
         public List<Djinn> DjinnsDeck = new List<Djinn>();
         public List<Meeple> MeepleBag = new List<Meeple>();
         public List<Player> Players = new List<Player>();
+        public TurnBidding Bidding = new TurnBidding();
         public Tile[,] Tiles = new Tile[BoardRows, BoardCols];
+
+        public GamePhase Phase;
 
         public bool IsDuel { get { return Players.Count == 2; } }
 
         public void Setup()
         {
+            Instance = this;
+
             // Meeples bag
             MeepleBag.AddMultiple(() => new Vizier(), 16);
             MeepleBag.AddMultiple(() => new Builder(), 18);
@@ -53,40 +59,40 @@ namespace FiveTribes
 
             // These are sorted like the image in the manual, 5 rows, 6 cols
             List<Tile> tileBag = new List<Tile>();
-            tileBag.Add(new Tile(10, TileColor.Blue, sacredPlaceAction, 0));
-            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 1));
-            tileBag.Add(new Tile(6, TileColor.Blue, sacredPlaceAction, 2));
-            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 3));
-            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 4));
-            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 5));
+            tileBag.Add(new Tile(10, TileColor.Blue, sacredPlaceAction, 0, 0));
+            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 1, 0));
+            tileBag.Add(new Tile(6, TileColor.Blue, sacredPlaceAction, 2, 0));
+            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 3, 1));
+            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 4, 0));
+            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 5, 0));
 
-            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 6));
-            tileBag.Add(new Tile(4, TileColor.Red, bigMarketAction, 7));
-            tileBag.Add(new Tile(4, TileColor.Red, bigMarketAction, 8));
-            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 9));
-            tileBag.Add(new Tile(4, TileColor.Red, bigMarketAction, 10));
-            tileBag.Add(new Tile(6, TileColor.Blue, sacredPlaceAction, 11));
+            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 6, 0));
+            tileBag.Add(new Tile(4, TileColor.Red, bigMarketAction, 7, 0));
+            tileBag.Add(new Tile(4, TileColor.Red, bigMarketAction, 8, 1));
+            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 9, 0));
+            tileBag.Add(new Tile(4, TileColor.Red, bigMarketAction, 10, 2));
+            tileBag.Add(new Tile(6, TileColor.Blue, sacredPlaceAction, 11, 0));
 
-            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 12));
-            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 13));
-            tileBag.Add(new Tile(12, TileColor.Blue, sacredPlaceAction, 14));
-            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 15));
-            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 16));
-            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 17));
+            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 12, 0));
+            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 13, 1));
+            tileBag.Add(new Tile(12, TileColor.Blue, sacredPlaceAction, 14, 0));
+            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 15, 1));
+            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 16, 1));
+            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 17, 1));
 
-            tileBag.Add(new Tile(6, TileColor.Blue, sacredPlaceAction, 18));
-            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 19));
-            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 20));
-            tileBag.Add(new Tile(4, TileColor.Red, bigMarketAction, 21));
-            tileBag.Add(new Tile(15, TileColor.Blue, sacredPlaceAction, 22));
-            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 23));
+            tileBag.Add(new Tile(6, TileColor.Blue, sacredPlaceAction, 18, 0));
+            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 19, 1));
+            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 20, 1));
+            tileBag.Add(new Tile(4, TileColor.Red, bigMarketAction, 21, 0));
+            tileBag.Add(new Tile(15, TileColor.Blue, sacredPlaceAction, 22, 0));
+            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 23, 0));
 
-            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 24));
-            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 25));
-            tileBag.Add(new Tile(6, TileColor.Blue, sacredPlaceAction, 26));
-            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 27));
-            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 28));
-            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 29));
+            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 24, 2));
+            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 25, 0));
+            tileBag.Add(new Tile(6, TileColor.Blue, sacredPlaceAction, 26, 0));
+            tileBag.Add(new Tile(8, TileColor.Red, treeAction, 27, 1));
+            tileBag.Add(new Tile(5, TileColor.Blue, palaceAction, 28, 0));
+            tileBag.Add(new Tile(6, TileColor.Red, smallMarketAction, 29, 2));
             tileBag = tileBag.Shuffle();
 
             // Djinn Deck
@@ -115,6 +121,7 @@ namespace FiveTribes
             DjinnsDeck = DjinnsDeck.Shuffle();
 
             // Setup players
+            Player.Players = new Dictionary<int, FiveTribes.Player>();
             for (int playerIndex = 0; playerIndex < Players.Count; ++playerIndex)
             {
                 var player = Players[playerIndex];
@@ -122,7 +129,30 @@ namespace FiveTribes
                 player.TurnMarkerCount = IsDuel ? 2 : 1;
                 player.Coins = 50;
                 player.Index = playerIndex;
+                Player.Players[player.Index] = player;
             }
+            Players = Players.Shuffle();
+
+            
+            if (IsDuel)
+            {
+                Bidding.TurnSlots[0] = Players[0].Index;
+                Bidding.TurnSlots[1] = Players[1].Index;
+                Bidding.TurnSlots[2] = Players[1].Index;
+                Bidding.TurnSlots[3] = Players[0].Index;
+            }
+            else
+            {
+                for (var slot = 0; slot < Bidding.TurnSlots.Count; ++slot)
+                {
+                    Bidding.TurnSlots[slot] = TurnBidding.NONE;
+                }
+                for (var p = 0; p < Players.Count; ++p)
+                {
+                    Bidding.TurnSlots[p] = Players[p].Index;
+                }
+            }
+
 
             // Draw first 9 merchendise cards
             for (int i = 0; i < MerchendiseShowingLimit; ++i)
@@ -142,6 +172,48 @@ namespace FiveTribes
                     Tiles[row, col] = tile;
                 }
             }
+
+            Phase = GamePhase.Bidding;
         }
+
+        public bool TryBid(int index)
+        {
+            int nextBidSlot = Bidding.GetNextBidSlot();
+            // This should never happen because it shouldn't be clickable
+            if (
+                Phase != GamePhase.Bidding ||
+                nextBidSlot == TurnBidding.NONE // no players to bid
+            ) {
+                return false;
+            }
+
+            var player = Player.Players[Bidding.TurnSlots[nextBidSlot]];
+            var cost = TurnBidding.BidCosts[index];
+
+            if (cost > player.Coins)
+            {
+                // Not enough coins
+                return false;
+            }
+
+            if (!Bidding.IsAvailable(index))
+            {
+                // Already occupied
+                return false;
+            }
+            
+            // Remove from 
+            Bidding.TurnSlots[nextBidSlot] = TurnBidding.NONE;
+            Bidding.SetBid(index, player.Index);
+            player.Coins -= cost;
+
+            return true;
+        }
+    }
+
+    public enum GamePhase
+    {
+        Bidding,
+        Playing,
     }
 }

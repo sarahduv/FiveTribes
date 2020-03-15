@@ -12,7 +12,7 @@ namespace FiveTribes
 
         public string GetImage()
         {
-            return @"Images\Meeples\" + GetType().Name +"2";
+            return @"Images\Meeples\" + GetType().Name +"4";
         }
 
         public Texture2D GetTexture()

@@ -70,5 +70,20 @@ namespace FiveTribes
 
         public static bool IsAdjacent(float x1, float y1, float x2, float y2) { return GetDistance(x1, y1, x2, y2) == 1; }
         public static bool IsAdjacent(Vector2 v1, Vector2 v2) { return IsAdjacent(v1.x, v1.y, v2.x, v2.y); }
+
+        public static double EaseInOut(double t, double b, double c, double d)
+        {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t + 2) + b;
+        }
+        public static double EaseIn(double t, double b, double c, double d)
+        {
+            return c * (t /= d) * t * t + b;
+        }
+        public static double EaseOut(double t, double b, double c, double d)
+        {
+            return c * ((t = t / d - 1) * t * t + 1) + b;
+        }
+
     }
 }

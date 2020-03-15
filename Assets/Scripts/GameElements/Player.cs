@@ -6,6 +6,8 @@ namespace FiveTribes
 {
     public class Player
     {
+        public static Dictionary<int, Player> Players = new Dictionary<int, Player>();
+
         public string Name;
         public int FakirCount = 0;
         public int VizierCount = 0;

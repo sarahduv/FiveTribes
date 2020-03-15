@@ -66,8 +66,11 @@
     <Compile Include="Assets\Scripts\Assigned\Cards\ObjDjinnCard.cs" />
     <Compile Include="Assets\Scripts\Assigned\Cards\ObjMerchCard.cs" />
     <Compile Include="Assets\Scripts\Assigned\ClickManager.cs" />
+    <Compile Include="Assets\Scripts\Assigned\ObjBidArea.cs" />
+    <Compile Include="Assets\Scripts\Assigned\ObjBidArrow.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjCamel.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjHelpWindow.cs" />
+    <Compile Include="Assets\Scripts\Assigned\ObjMarker.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjMeeple.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjTable.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjTile.cs" />
@@ -89,39 +92,41 @@
     <Compile Include="Assets\Scripts\GameElements\TileActions\SmallMarketTileAction.cs" />
     <Compile Include="Assets\Scripts\GameElements\TileActions\TileAction.cs" />
     <Compile Include="Assets\Scripts\GameElements\TileActions\TreeTileAction.cs" />
+    <Compile Include="Assets\Scripts\GameElements\TurnBidding.cs" />
     <Compile Include="Assets\Scripts\Misc\Helpers.cs" />
+    <None Include="Assets\Others\TransparentUnlit.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Unity/Projects/FiveTribes/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Unity/Projects/GitFiveTribes/FiveTribes/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity/Editors/2019.3.0f5/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

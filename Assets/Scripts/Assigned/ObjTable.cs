@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using System;
 using UnityEditor;
 
@@ -25,9 +26,64 @@ public class ObjTable : MonoBehaviour
         UpdateTiles();
         UpdateMarket();
         UpdateDjinns();
+        UpdatePhase();
+        UpdateBidding();
     }
 
-    private void UpdateTiles()
+    public void UpdatePhase()
+    {
+        foreach (var bidArrow in FindObjectsOfType<ObjBidArrow>())
+        {
+            if (mTable.Phase == GamePhase.Bidding)
+            {
+                bidArrow.Show();
+            }
+            else
+            {
+                bidArrow.Hide();
+            }
+        }
+    }
+
+    public void UpdateBidding()
+    {
+        var markers = FindObjectsOfType<ObjMarker>();
+
+        // Hide all markers
+        foreach (var marker in markers)
+        {
+            marker.Hide();
+        }
+        var markerByName = markers.GroupBy(x => x.name).ToDictionary(x => x.Key, x => x.First());
+
+        for (var slot = 0; slot < mTable.Bidding.TurnSlots.Count; ++slot)
+        {
+            var playerIndex = mTable.Bidding.TurnSlots[slot];
+            var marker = markerByName["TurnSlot" + slot];
+            if (playerIndex == TurnBidding.NONE)
+            {
+                marker.Hide();
+            } 
+            else
+            {
+                marker.Player = playerIndex;
+                marker.Show();
+            }
+        }
+
+        foreach (var bid in mTable.Bidding.Bids)
+        {
+            if (bid.Value == TurnBidding.NONE)
+            {
+                continue;
+            }
+            var marker = markerByName["Bid" + bid.Key];
+            marker.Player = bid.Value;
+            marker.Show();
+        }
+    }
+
+    public void UpdateTiles()
     {
         var objTiles = GameObject.Find("Tiles");
         for (int row = 0; row < Table.BoardRows; ++row)
@@ -39,6 +95,10 @@ public class ObjTable : MonoBehaviour
                 objTile.Tile = mTable.Tiles[row, col];
             }
         }
+    }
+
+    public void UpdateCoins()
+    {
     }
 
     public void UpdateMarket()

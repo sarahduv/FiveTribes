@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using FiveTribes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,13 +8,14 @@ public class ClickManager : MonoBehaviour
 {
     bool mouseDown = false;
     ObjCard draggedCard;
+    ObjTable mObjTable;
     Vector3 dragOrigin;
     Vector3 dragOffset;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        mObjTable = GameObject.FindObjectOfType<ObjTable>();
     }
 
     // Update is called once per frame
@@ -22,9 +24,9 @@ public class ClickManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             mouseDown = true;
+            var table = Table.Instance;
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit[] hits = Physics.RaycastAll(mousePos, Vector3.forward, 50);
-            Debug.Log(hits.Length + " hits");
             foreach (var hit in hits)
             {
                 if (hit.collider != null)
@@ -43,6 +45,24 @@ public class ClickManager : MonoBehaviour
                             draggedCard = objCard;
                             dragOrigin = objCard.transform.position;
                             dragOffset = mousePos - dragOrigin;
+                        }
+                    }
+
+                    ObjBidArea bidArea;
+                    if (
+                        table.Phase == GamePhase.Bidding && 
+                        hit.collider.gameObject.TryGetComponent<ObjBidArea>(out bidArea)
+                    ) {
+                        Debug.Log("Bidding on index " + bidArea.Index);
+                        if (table.TryBid(bidArea.Index))
+                        {
+                            bidArea.Flash(1f, new Color(0, 1, 0.13f, 0.31f));
+                            mObjTable.UpdateBidding();
+                            mObjTable.UpdateCoins();
+                        }
+                        else
+                        {
+                            bidArea.Flash(1f, new Color(1, 0, 0.13f, 0.31f));
                         }
                     }
                 }

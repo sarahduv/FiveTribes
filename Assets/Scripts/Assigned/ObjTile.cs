@@ -29,16 +29,16 @@ public class ObjTile : MonoBehaviour
     private void UpdateTile()
     {
         // Update score
-        gameObject.transform.Find("TileScore").GetComponent<MeshRenderer>().material.mainTexture =
-            Resources.Load<Texture2D>(@"Images\TileScore\Score" + mTile.Score + (mTile.Color == TileColor.Blue ? "B" : "R"));
+        //gameObject.transform.Find("TileScore").GetComponent<MeshRenderer>().material.mainTexture =
+        //    Resources.Load<Texture2D>(@"Images\TileScore\Score" + mTile.Score + (mTile.Color == TileColor.Blue ? "B" : "R"));
 
-        // Update action
-        gameObject.transform.Find("TileAction").GetComponent<MeshRenderer>().material.mainTexture =
-            Resources.Load<Texture2D>(mTile.TileAction.GetImagePath());
+        //// Update action
+        //gameObject.transform.Find("TileAction").GetComponent<MeshRenderer>().material.mainTexture =
+        //    Resources.Load<Texture2D>(mTile.TileAction.GetImagePath());
 
         // Update background image
         gameObject.GetComponent<MeshRenderer>().material.mainTexture =
-            Resources.Load<Texture2D>(@"Images\Tiles\Tile_" + mTile.TileIndex.ToString().PadLeft(4, '0'));
+            Resources.Load<Texture2D>(@"Images\Tiles\" + mTile.Image);
 
         UpdateMeeples();
         UpdateTokens(TileTokenKind.Palace, PalacePrefab, Tile.PalaceCount);
