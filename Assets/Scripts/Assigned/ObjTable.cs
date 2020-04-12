@@ -43,6 +43,23 @@ public class ObjTable : MonoBehaviour
                 bidArrow.Hide();
             }
         }
+
+        foreach (var textSection in FindObjectsOfType<ObjPaperTextSection>())
+        {
+            if (mTable.Phase == GamePhase.Bidding && textSection.gameObject.name == "BiddingHelp")
+            {
+                textSection.Show(null);
+            }
+            else if (mTable.Phase == GamePhase.Playing && textSection.gameObject.name == "PlayerTab")
+            {
+                textSection.Show(mTable.GetCurrentPlayer());
+            }
+            else
+            {
+                textSection.Hide();
+            }
+        }
+
     }
 
     public void UpdateBidding()
@@ -56,6 +73,7 @@ public class ObjTable : MonoBehaviour
         }
         var markerByName = markers.GroupBy(x => x.name).ToDictionary(x => x.Key, x => x.First());
 
+        bool isBiddingDone = true;
         for (var slot = 0; slot < mTable.Bidding.TurnSlots.Count; ++slot)
         {
             var playerIndex = mTable.Bidding.TurnSlots[slot];
@@ -68,6 +86,7 @@ public class ObjTable : MonoBehaviour
             {
                 marker.Player = playerIndex;
                 marker.Show();
+                isBiddingDone = false;
             }
         }
 
@@ -80,6 +99,11 @@ public class ObjTable : MonoBehaviour
             var marker = markerByName["Bid" + bid.Key];
             marker.Player = bid.Value;
             marker.Show();
+        }
+
+        if (isBiddingDone)
+        {
+            mTable.Phase = GamePhase.Playing;
         }
     }
 

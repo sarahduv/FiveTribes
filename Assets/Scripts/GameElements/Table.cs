@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace FiveTribes
 {
@@ -30,11 +31,11 @@ namespace FiveTribes
             Instance = this;
 
             // Meeples bag
-            MeepleBag.AddMultiple(() => new Vizier(), 16);
-            MeepleBag.AddMultiple(() => new Builder(), 18);
-            MeepleBag.AddMultiple(() => new Assassin(), 18);
-            MeepleBag.AddMultiple(() => new Merchant(), 18);
-            MeepleBag.AddMultiple(() => new Elder(), 20);
+            MeepleBag.AddMultiple(() => new Vizier(), Vizier.MAX);
+            MeepleBag.AddMultiple(() => new Builder(), Builder.MAX);
+            MeepleBag.AddMultiple(() => new Assassin(), Assassin.MAX);
+            MeepleBag.AddMultiple(() => new Merchant(), Merchant.MAX);
+            MeepleBag.AddMultiple(() => new Elder(), Elder.MAX);
             MeepleBag = MeepleBag.Shuffle();
 
             // Merchendise deck
@@ -125,7 +126,7 @@ namespace FiveTribes
             for (int playerIndex = 0; playerIndex < Players.Count; ++playerIndex)
             {
                 var player = Players[playerIndex];
-                player.CamelCount = IsDuel ? 11 : 8;
+                player.CamelsLeft = IsDuel ? 11 : 8;
                 player.TurnMarkerCount = IsDuel ? 2 : 1;
                 player.Coins = 50;
                 player.Index = playerIndex;
@@ -174,6 +175,16 @@ namespace FiveTribes
             }
 
             Phase = GamePhase.Bidding;
+        }
+
+        public Player GetCurrentPlayer()
+        {
+            var playerIndex = Bidding.GetCurrentPlayer();
+            if (playerIndex == TurnBidding.NONE)
+            {
+                return null;
+            }
+            return Player.Players[playerIndex];
         }
 
         public bool TryBid(int index)

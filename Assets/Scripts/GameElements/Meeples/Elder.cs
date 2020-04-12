@@ -6,6 +6,8 @@ namespace FiveTribes
 {
     public class Elder : Meeple
     {
+        public const int MAX = 20;
+
         public override int GetPoints()
         {
             return 2;

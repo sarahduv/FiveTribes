@@ -69,10 +69,13 @@
     <Compile Include="Assets\Scripts\Assigned\ObjBidArea.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjBidArrow.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjCamel.cs" />
+    <Compile Include="Assets\Scripts\Assigned\ObjCoinBack.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjHelpWindow.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjMarker.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjMeeple.cs" />
+    <Compile Include="Assets\Scripts\Assigned\ObjPaperTextSection.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjTable.cs" />
+    <Compile Include="Assets\Scripts\Assigned\ObjText.cs" />
     <Compile Include="Assets\Scripts\Assigned\ObjTile.cs" />
     <Compile Include="Assets\Scripts\Assigned\TileToken.cs" />
     <Compile Include="Assets\Scripts\GameElements\Djinn.cs" />

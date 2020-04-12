@@ -9,10 +9,10 @@ namespace FiveTribes
         public static Dictionary<int, Player> Players = new Dictionary<int, Player>();
 
         public string Name;
-        public int FakirCount = 0;
-        public int VizierCount = 0;
-        public int ElderCount = 0;
-        public int CamelCount = 0;
+        public int FakirCount = 3;
+        public int VizierCount = 2;
+        public int ElderCount = 4;
+        public int CamelsLeft = 0;
         public int TurnMarkerCount = 0;
         public int Coins = 0;
         public Table table;

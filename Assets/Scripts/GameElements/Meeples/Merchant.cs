@@ -6,6 +6,8 @@ namespace FiveTribes
 {
     public class Merchant : Meeple
     {
+        public const int MAX = 18;
+
         public override int GetPoints()
         {
             return 0;

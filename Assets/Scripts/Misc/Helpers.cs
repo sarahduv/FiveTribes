@@ -8,6 +8,22 @@ namespace FiveTribes
 {
     static class Helpers
     {
+        public static void HideChildren(this Transform transform)
+        {
+            if (!transform)
+            {
+                return;
+            }
+            for (var i = 0; i < transform.childCount; ++i)
+            {
+                MeshRenderer renderer;
+                if (transform.GetChild(i).TryGetComponent<MeshRenderer>(out renderer))
+                {
+                    renderer.enabled = false;
+                }
+            }
+        }
+
         public static List<T> Shuffle<T>(this IEnumerable<T> unshuffled)
         {
             return unshuffled.OrderBy(x => Guid.NewGuid()).ToList();

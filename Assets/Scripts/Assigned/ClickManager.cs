@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 
 public class ClickManager : MonoBehaviour
 {
+    private static List<Action> MouseUpCallbacks = new List<Action>();
+
     bool mouseDown = false;
     ObjCard draggedCard;
     ObjTable mObjTable;
@@ -48,17 +51,24 @@ public class ClickManager : MonoBehaviour
                         }
                     }
 
+                    ObjCoinBack objCoinBack;
+                    if (hit.collider.gameObject.TryGetComponent<ObjCoinBack>(out objCoinBack))
+                    {
+                        objCoinBack.Target.ShowUntilMouseup(objCoinBack.Coins + " coins");
+                    }
+
+
                     ObjBidArea bidArea;
                     if (
                         table.Phase == GamePhase.Bidding && 
                         hit.collider.gameObject.TryGetComponent<ObjBidArea>(out bidArea)
                     ) {
-                        Debug.Log("Bidding on index " + bidArea.Index);
                         if (table.TryBid(bidArea.Index))
                         {
                             bidArea.Flash(1f, new Color(0, 1, 0.13f, 0.31f));
                             mObjTable.UpdateBidding();
                             mObjTable.UpdateCoins();
+                            mObjTable.UpdatePhase();
                         }
                         else
                         {
@@ -92,6 +102,16 @@ public class ClickManager : MonoBehaviour
                 draggedCard.transform.position = new Vector3(mousePos.x - dragOffset.x, mousePos.y - dragOffset.y, dragOrigin.z);
                 draggedCard = null;
             }
+
+            while (MouseUpCallbacks.Count > 0)
+            {
+                MouseUpCallbacks.Pop()();
+            }
         }
+    }
+
+    public static void addMouseUpEvent(Action p)
+    {
+        MouseUpCallbacks.Add(p);
     }
 }

@@ -11,21 +11,27 @@ namespace FiveTribes
         public const int NONE = -1;
 
         public static int[] BidCosts = new int[] { 0, 1, 3, 5, 8, 12, 18 };
+        private static string[] BidPlayOrder = new string[] {
+          "6",
+          "5",
+          "4",
+          "3",
+          "2",
+          "1",
+          "0A",
+          "0B",
+          "0C",
+        };
 
         public Dictionary<int, int> TurnSlots = new Dictionary<int, int>();
         public Dictionary<string, int> Bids = new Dictionary<string, int>();
 
         public TurnBidding()
         {
-            Bids["0A"] = NONE;
-            Bids["0B"] = NONE;
-            Bids["0C"] = NONE;
-            Bids["1"] = NONE;
-            Bids["2"] = NONE;
-            Bids["3"] = NONE;
-            Bids["4"] = NONE;
-            Bids["5"] = NONE;
-            Bids["6"] = NONE;
+            foreach (var bidname in BidPlayOrder)
+            {
+                Bids[bidname] = NONE;
+            }
 
             TurnSlots[0] = NONE;
             TurnSlots[1] = NONE;
@@ -40,6 +46,18 @@ namespace FiveTribes
                 if (TurnSlots[i] != NONE)
                 {
                     return i;
+                }
+            }
+            return NONE;
+        }
+
+        public int GetCurrentPlayer()
+        {
+            foreach (var bidname in BidPlayOrder)
+            {
+                if (Bids[bidname] != NONE)
+                {
+                    return Bids[bidname];
                 }
             }
             return NONE;
